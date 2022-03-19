@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<h3>{{ titulo }}</h3>
+    <p class="lead">
+    Preencha todos os campos obrigatórios.
+    </p>
+
+<hr>
+
+{% for message in messages %}
+  {% if 'success' in message.tags %}
+    <p class="alert alert-success" role="alert"><span style="font-weight: bold">{{ message }}</span></p>
+  {% else %}
+    <p class="alert alert-danger" role="alert"><span style="font-weight: bold">{{ message }}</span></p>
+  {% endif %}
+{% endfor %}
+
+<div class="row">
+  <div class="col-sm-6">
+    <form action="." method="GET" class="form-inline">
+      <input type="text" id="search" name="search" class="form-control" placeholder="Busca">
+      <input type="submit" class="btn btn-primary" style="margin-left: 10px;" value="OK">
+    </form>
+  </div>
+</div>
+
+<div class="page-header">
+  <h2>Lista de resultado
+    <span class="pull-right" >
+      <a href="{ url 'fornecedor:create' %}">
+        <button type="button" class="btn btn-success" >
+          <span class="fa fa-plus" ></span> Adicionar
+        </button>
+      </a>
+    </span>
+  </h2>
+
+  {% if object_list %}
+    <div class="table-reponsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>USUÁRIO</th>
+              <th>DATA</th>
+              <th>PROTOCOLO</th>
+              <th>NOME</th>
+              <th>NUMERO</th>
+              <th>RESULTADO 1</th>
+              <th>RESULTADO 2</th>
+              <th>ATIVO?</th>
+            </tr>
+          </thead>
+
+          <tbody>
+          {% for object in object_list %}
+              <tr>
+                <td class="text-left">{{ object.user }}</td>
+                <td class="text-left">{{ object.data }}</td>
+                <td class="text-left">{{ object.protocol }}</td>
+                <td class="text-left">{{ object.name }}</td>
+                <td class="text-left">{{ object.number }}</td>
+                <td class="text-left">{{ object.result_1 }}</td>
+                <td class="text-left">{{ object.result_2 }}</td>
+                <td class="text-left">{{ object.active }}</td>
+                <td>
+                      <a href="{ url 'fornecedor:update' object.pk  %}" class="btn btn-warning btn-sm" title="Editar">
+                          <i class="fa fa-pencil" aria-hidden="true"></i>
+                      </a>
+                      <a href="{ url 'fornecedor:delete' object.pk %}" class="btn btn-danger btn-sm" title="Excluir">
+                          <i class="fa fa-trash" aria-hidden="true"></i>
+                      </a>
+                </td>
+              </tr>
+          </tbody>
+      {% endfor %}
+        </table>
+    </div>
+  {% else %}
+    <p class="alert alert-warning">Sem itens na lista.</p>
+  {% endif %}
+
+</div>
+
+{% endblock content %}
+
