@@ -19,25 +19,7 @@
   {% endif %}
 {% endfor %}
 
-<div class="row">
-  <div class="col-sm-6">
-    <form action="." method="GET" class="form-inline">
-      <input type="text" id="search" name="search" class="form-control" placeholder="Busca">
-      <input type="submit" class="btn btn-primary" style="margin-left: 10px;" value="OK">
-    </form>
-  </div>
-</div>
-
 <div class="page-header">
-  <h2>Lista de resultado
-    <span class="pull-right" >
-      <a href="{ url 'fornecedor:create' %}">
-        <button type="button" class="btn btn-success" >
-          <span class="fa fa-plus" ></span> Adicionar
-        </button>
-      </a>
-    </span>
-  </h2>
 
   {% if object_list %}
     <div class="table-reponsive">
@@ -67,11 +49,9 @@
                 <td class="text-left">{{ object.result_2 }}</td>
                 <td class="text-left">{{ object.active }}</td>
                 <td>
-                      <a href="{ url 'fornecedor:update' object.pk  %}" class="btn btn-warning btn-sm" title="Editar">
-                          <i class="fa fa-pencil" aria-hidden="true"></i>
-                      </a>
-                      <a href="{ url 'fornecedor:delete' object.pk %}" class="btn btn-danger btn-sm" title="Excluir">
-                          <i class="fa fa-trash" aria-hidden="true"></i>
+
+                      <a href="{ url 'fornecedor:delete' object.pk %}" class="btn btn-danger btn-sm" title="PDF">
+                          <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                       </a>
                 </td>
               </tr>
