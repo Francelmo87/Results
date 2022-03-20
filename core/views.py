@@ -1,6 +1,6 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.views.generic import ListView
-from .forms import ResultForm
+
 
 from .models import Result
 
@@ -11,7 +11,7 @@ def index(request):
     template = 'index.html'
     return render(request, template)
 
-
+@login_required()
 def login(request):
     template = 'longin.html'
     return render(request, template)
@@ -22,8 +22,10 @@ def logout(request):
     return redirect(request, template)
 
 
-# listar fornecedores Com CBV
-class ResultList(ListView):
-    login_url = '/login/'
-    model = Result
+@login_required()
+def result_list(request):
     template_name = 'result_list.html'
+    objects = Result.objects.filter(active=True, user=request.user)
+    context = {'object_list': objects}
+    return render(request, template_name, context)
+
